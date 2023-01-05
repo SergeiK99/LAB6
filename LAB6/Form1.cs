@@ -19,29 +19,32 @@ namespace LAB6
         {
             InitializeComponent();
         }
-        internal class SeriesCreator //Создаёт множество точек, которые формируют график
+        public class SeriesCreator //Создаёт множество точек, которые формируют график
         {
-            static public Series Get(Equation equation, double x1, double x2, int quality = 100)
+            static public void Get(Series series,Equation equation, double x1, double x2, int quality = 100)
             {
                 double CurPoint;
-                Series Value = new Series();
-                Value.ChartType = SeriesChartType.Line;
+                //Series Value = new Series();
+                //Value.ChartType = SeriesChartType.Line;
+                series.ChartType = SeriesChartType.Line;
                 double h = (x2 - x1) / quality;
                 for (int i = 0; i < quality; i++)
                 {
                     CurPoint = x1 + i * h;
-                    Value.Points.AddXY(CurPoint, equation.GetValue(CurPoint));
+                    series.Points.AddXY(CurPoint, equation.GetValue(CurPoint));
+                    //Value.Points.AddXY(CurPoint, equation.GetValue(CurPoint));
                 }
-                return Value;
+                //return Value;
             }
         }
         void DrawFunction(double x1, double x2 , Equation equation, int N = 100)
         {
-            chart1.Series.Add(SeriesCreator.Get(equation,x1,x2,N));
+            //chart1.Series.Add(SeriesCreator.Get(equation,x1,x2,N));
+            SeriesCreator.Get(chart1.Series[0], equation, x1, x2, N);
         }
         void Clear()
         {
-            chart1.Series.Clear();
+            chart1.Series[0].Points.Clear();
         }
 
         private void button5_Click(object sender, EventArgs e)
